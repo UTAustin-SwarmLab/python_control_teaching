@@ -37,11 +37,21 @@ for m, k, b in zip(m_list, k_list, b_list):
     plt.figure(initial_condition_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
 
+
+
 plt.figure(step_response_plot.number)
 plt.legend()
-plt.savefig('step.pdf')
+
+if 'CONTROL_PLOT_DIR' not in os.environ:
+    plt.show()
+else:
+    plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec2_spring_mass_damper_step.pdf')
 
 
 plt.figure(initial_condition_plot.number)
 plt.legend()
-plt.savefig('init.pdf')
+
+if 'CONTROL_PLOT_DIR' not in os.environ:
+    plt.show()
+else:
+    plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec2_spring_mass_damper_init.pdf')
