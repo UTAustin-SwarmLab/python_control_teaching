@@ -5,7 +5,7 @@ import control as ct
 
 
 # Do the scalar case
-a_list = [-1, 0, 2]
+a_list = [-2, -1, -0.5, 0, 0.1]
 
 # loop through different configurations
 step_response_plot = plt.figure()
