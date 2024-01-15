@@ -37,9 +37,16 @@ for a in zip(a_list):
 
 plt.figure(step_response_plot.number)
 plt.legend()
-plt.savefig('step.pdf')
-
+if 'CONTROL_PLOT_DIR' not in os.environ:
+    plt.show()
+else:
+    plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec3_scalar_stability_step.pdf')
 
 plt.figure(initial_condition_plot.number)
 plt.legend()
-plt.savefig('init.pdf')
+
+if 'CONTROL_PLOT_DIR' not in os.environ:
+    plt.show()
+else:
+    plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec3_scalar_stability_init.pdf')
+
