@@ -46,8 +46,12 @@ for zeta, w0 in zip(damping_list, natfreq_list):
     eigenvals, eigenvecs = np.linalg.eig(np.array(A))
     print('eig: ', eigenvals)
     print('')
-    print('')
 
+    # analytical eigenvalues
+    analytical_eig1 = -zeta*w0 + w0*np.emath.sqrt(zeta**2-1)
+    analytical_eig2 = -zeta*w0 - w0*np.emath.sqrt(zeta**2-1)
+    print('analytical eig: ', analytical_eig1, analytical_eig2)
+    print('')
 
 # plot the step response and save to a directory or directly show
 plt.figure(step_response_plot.number)
@@ -67,3 +71,4 @@ if 'CONTROL_PLOT_DIR' not in os.environ:
     plt.show()
 else:
     plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/tf_init.pdf')
+
