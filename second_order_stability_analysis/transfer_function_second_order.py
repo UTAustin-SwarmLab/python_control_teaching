@@ -2,11 +2,12 @@ import os
 import matplotlib.pyplot as plt   # MATLAB plotting functions
 from control.matlab import *  # MATLAB-like functions
 import control as ct
+import numpy as np
 
 
 # Parameters defining the system (list)
-damping_list = [0.2, 0.2, 0.4, 0.4, 1., 1., 1.2, 1.2]       # damping ratio
-natfreq_list = [1, 1, 2, 2, 4, 4, 6, 6]                   # nat frequency
+damping_list = [0.2, 0.4, 1., 1.2, 1.2]       # damping ratio
+natfreq_list = [1., 1., 1., 1., 1., 1., 1., 1.]                   # nat frequency
 
 # create two plots, one for step response and other from initial condition
 step_response_plot = plt.figure()
@@ -24,7 +25,7 @@ for zeta, w0 in zip(damping_list, natfreq_list):
     print(legend_str)
 
     # System matrices
-    A = [[0, 1.], [-w0^2, -2*zeta*w0]]
+    A = [[0, 1.], [-w0**2, -2*zeta*w0]]
     B = [[0], [1]]
     C = [[1., 0]]
 
@@ -40,6 +41,12 @@ for zeta, w0 in zip(damping_list, natfreq_list):
     T,yout = ct.initial_response(sys, T=time_horizon, X0=X0)
     plt.figure(initial_condition_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
+
+    # compute the eigenvalues
+    eigenvals, eigenvecs = np.linalg.eig(np.array(A))
+    print('eig: ', eigenvals)
+    print('')
+    print('')
 
 
 # plot the step response and save to a directory or directly show
