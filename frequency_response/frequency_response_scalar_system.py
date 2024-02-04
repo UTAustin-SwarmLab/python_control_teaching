@@ -31,13 +31,19 @@ b_list = [1, 3]
 c_list = [1, 2]
 d_list = [0, 1.5]
 
+
+a_list = [-2]
+b_list = [1]
+c_list = [1]
+d_list = [0]
+
 plot_index = 0
 
 # initialize two plots
 step_response_plot = plt.figure()
 initial_condition_plot = plt.figure()
 impulse_response_plot = plt.figure()
-
+bode_plot = plt.figure()
 
 
 for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
@@ -76,8 +82,8 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     # response to a sinusoid of a specific frequency
 
     # calculate phase offset, magnitude etc. analytically
-
-    # compute the bode plot
+    plt.figure(bode_plot.number)
+    out = ct.bode_plot(sys, Hz=False)
 
     # increment the plot index
     plot_index += 1
@@ -85,13 +91,18 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
 # save all plots together
 
 # step response plot
-plot_name = 'Lec6_scalar_step_' + str(plot_index)
+plot_name = 'Lec6_scalar_step_'
 save_plot(step_response_plot.number, plot_name)
 
 # init response plot
-plot_name = 'Lec6_scalar_init_' + str(plot_index)
+plot_name = 'Lec6_scalar_init_'
 save_plot(initial_condition_plot.number, plot_name)
 
 # impulse response plot
-plot_name = 'Lec6_scalar_impulse_' + str(plot_index)
+plot_name = 'Lec6_scalar_impulse_'
 save_plot(impulse_response_plot.number, plot_name)
+
+# bode plot
+plot_name = 'Lec6_scalar_bode_'
+save_plot(bode_plot.number, plot_name)
+
