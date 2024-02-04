@@ -54,6 +54,16 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     plt.figure(initial_condition_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
 
+
+    # impulse response
+
+	# modified system for impulse response with no direct term
+    modified_sys = ss(A, B, C, [0])
+
+    T,yout = ct.impulse_response(modified_sys, T=time_horizon)
+    plt.figure(impulse_response_plot.number)
+    plt.plot(T.T, yout.T, label=legend_str)
+
     # response to a sinusoid of a specific frequency
 
     # calculate phase offset, magnitude etc. analytically
