@@ -25,6 +25,9 @@ plot_index = 0
 # initialize two plots
 step_response_plot = plt.figure()
 initial_condition_plot = plt.figure()
+impulse_response_plot = plt.figure()
+
+
 for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
 
 
@@ -51,13 +54,21 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     plt.figure(initial_condition_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
 
+    # response to a sinusoid of a specific frequency
+
+    # calculate phase offset, magnitude etc. analytically
+
+    # compute the bode plot
+
+
+
     # plot in two separate plots
     plt.figure(step_response_plot.number)
     plt.legend()
     if 'CONTROL_PLOT_DIR' not in os.environ:
         plt.show()
     else:
-        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_stability_step_' + str(plot_index) + '.pdf')
+        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_step_' + str(plot_index) + '.pdf')
 
     plt.figure(initial_condition_plot.number)
     plt.legend()
@@ -65,7 +76,14 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     if 'CONTROL_PLOT_DIR' not in os.environ:
         plt.show()
     else:
-        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_stability_init_' + str(plot_index) + '.pdf')
+        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_init_' + str(plot_index) + '.pdf')
+
+    plt.figure(impulse_response_plot.number)
+    plt.legend()
+    if 'CONTROL_PLOT_DIR' not in os.environ:
+        plt.show()
+    else:
+        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_impulse_' + str(plot_index) + '.pdf')
 
     # increment the plot index
     plot_index += 1
