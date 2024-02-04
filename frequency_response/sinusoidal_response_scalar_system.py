@@ -41,7 +41,7 @@ num_discretization_points = 500
 
 omega_list = [3, 5]
 
-for omega in zip(omega_list):
+for omega in omega_list:
 
     # initialize two plots
     sinusoidal_response_plot = plt.figure()
@@ -65,5 +65,6 @@ for omega in zip(omega_list):
 
 # calculate phase offset, magnitude etc. analytically
 plt.figure(bode_plot.number)
-out = ct.bode_plot(sys, Hz=False)
-
+out = bode(sys,dB=False,deg=True)
+plot_name = 'matlab_bode'
+save_plot(bode_plot.number, plot_name)
