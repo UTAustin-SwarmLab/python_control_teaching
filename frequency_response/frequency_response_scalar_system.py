@@ -9,6 +9,17 @@ from control.matlab import *  # MATLAB-like functions
 import control as ct
 
 
+def save_plot(figure_number, plot_name):
+    # plot in two separate plots
+    plt.figure(figure_number)
+    plt.legend()
+    if 'CONTROL_PLOT_DIR' not in os.environ:
+        plt.show()
+    else:
+        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/' + plot_name + '.pdf')
+    plt.close()
+
+
 
 # time horizon to simulate
 time_horizon = 3
@@ -28,6 +39,7 @@ initial_condition_plot = plt.figure()
 impulse_response_plot = plt.figure()
 
 
+
 for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
 
 
@@ -44,9 +56,8 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     print(legend_str)
 
     # Step response for the system
-    plt.figure(step_response_plot.number)
     yout, T = step(sys)
-
+    plt.figure(step_response_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
 
     # initial condition response
@@ -54,9 +65,7 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
     plt.figure(initial_condition_plot.number)
     plt.plot(T.T, yout.T, label=legend_str)
 
-
     # impulse response
-
 	# modified system for impulse response with no direct term
     modified_sys = ss(A, B, C, [0])
 
@@ -70,31 +79,19 @@ for a, b, c, d, in zip(a_list, b_list, c_list, d_list):
 
     # compute the bode plot
 
-
-
-    # plot in two separate plots
-    plt.figure(step_response_plot.number)
-    plt.legend()
-    if 'CONTROL_PLOT_DIR' not in os.environ:
-        plt.show()
-    else:
-        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_step_' + str(plot_index) + '.pdf')
-
-    plt.figure(initial_condition_plot.number)
-    plt.legend()
-
-    if 'CONTROL_PLOT_DIR' not in os.environ:
-        plt.show()
-    else:
-        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_init_' + str(plot_index) + '.pdf')
-
-    plt.figure(impulse_response_plot.number)
-    plt.legend()
-    if 'CONTROL_PLOT_DIR' not in os.environ:
-        plt.show()
-    else:
-        plt.savefig(os.environ['CONTROL_PLOT_DIR'] + '/Lec6_scalar_impulse_' + str(plot_index) + '.pdf')
-
     # increment the plot index
     plot_index += 1
 
+# save all plots together
+
+# step response plot
+plot_name = 'Lec6_scalar_step_' + str(plot_index)
+save_plot(step_response_plot.number, plot_name)
+
+# init response plot
+plot_name = 'Lec6_scalar_init_' + str(plot_index)
+save_plot(initial_condition_plot.number, plot_name)
+
+# impulse response plot
+plot_name = 'Lec6_scalar_impulse_' + str(plot_index)
+save_plot(impulse_response_plot.number, plot_name)
