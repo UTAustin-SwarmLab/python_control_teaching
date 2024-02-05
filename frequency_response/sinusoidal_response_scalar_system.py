@@ -30,7 +30,7 @@ bode_plot = plt.figure()
 # System matrices
 A = [-1]
 B = [1]
-C = [1]
+C = [2]
 D = [0]
 sys = ss(A, B, C, D)
 
@@ -41,12 +41,12 @@ num_discretization_points = 500
 
 omega_list = [3, 5]
 
-for omega in omega_list:
+for omega_val in omega_list:
 
     # initialize two plots
     sinusoidal_response_plot = plt.figure()
     t = np.linspace(0,T,num_discretization_points)
-    u = np.sin(omega*t)
+    u = np.sin(omega_val*t)
     yout,time_vec,xout = lsim(sys,u,t,x_0)
 
     # plot sinusoidal response for the system
@@ -56,12 +56,19 @@ for omega in omega_list:
     plt.plot(t, u, 'k', label='u_t')
     plt.xlabel('Time t')
     plt.ylabel('Control, Output, and State')
-    plt.title('Frequency omega: ' + str(omega))
     plt.legend()
 
+    # write the magnitude and phase at a certain frequency
+    mag, phase, omega_vec = bode(sys, [omega_val], plot=False)
+
+    title_str = ' '.join(['omega: ', str(omega_val), 'mag: ', str(round(mag[0], 3)), 'phase: ', str(round(phase[0], 3))])
+    plt.title(title_str)
+
     # sinusoidal response plot
-    plot_name = 'Lec6_scalar_sinusoidal_frequency' + str(omega)
+    plot_name = 'Lec6_scalar_sinusoidal_frequency' + str(omega_val)
     save_plot(sinusoidal_response_plot.number, plot_name)
+
+
 
 # calculate phase offset, magnitude etc. analytically
 plt.figure(bode_plot.number)
