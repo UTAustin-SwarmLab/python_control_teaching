@@ -80,6 +80,24 @@ if 'CONTROL_PLOT_DIR' in os.environ:
 else:
     plt.show()
 
+# Compute steady-state gain using final value theorem
+def steady_state_gain(A, B, C, D):
+    """
+    Computes the steady-state gain K_ss using the final value theorem:
+    K_ss = C * (-A)^(-1) * B + D
+    """
+    K_ss = -C @ np.linalg.inv(A) @ B + D
+    return K_ss.item()  # Convert 1x1 array to scalar
+
+# Compute steady-state gains for fast and slow closed-loop systems
+K_ss_fast = steady_state_gain(A_cl_fast, B, C, D)
+K_ss_slow = steady_state_gain(A_cl_slow, B, C, D)
+
+print("\nSteady-state gain for fast response system:", K_ss_fast)
+print("Steady-state gain for slow response system:", K_ss_slow)
+
+
+
 # Plot sinusoidal response (forced response to sin input)
 T_sin = np.linspace(0, 10, 100)
 U_sin = np.sin(T_sin)  # Sinusoidal input
@@ -103,6 +121,8 @@ else:
 # Compute closed-loop transfer function for Bode plot
 sys_tf_fast = ct.ss2tf(sys_cl_fast)
 sys_tf_slow = ct.ss2tf(sys_cl_slow)
+
+
 
 # Plot Bode plot for fast and slow closed-loop systems
 plt.figure()
