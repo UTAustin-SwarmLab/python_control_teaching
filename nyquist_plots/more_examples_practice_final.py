@@ -4,8 +4,14 @@ import control as ct
 import os
 
 # --- Define transfer function here ---
-num = [25, 25]
-den = [1, 4, 20, 32, 0]
+#num = [25, 25]
+#den = [1, 4, 20, 32, 0]
+
+# a few more examples
+
+num = [3.8, 4]
+den = [1, -1, 0]
+
 tf = ct.tf(num, den)
 
 # --- Generate LaTeX string for the title manually ---
